@@ -100,10 +100,13 @@ final class Extension extends \Nette\DI\CompilerExtension
 			return;
 		}
 		$builder = $this->getContainerBuilder();
-		$builder
+		$cleanCacheDefinition = $builder
 			->addDefinition($this->prefix('console.cleanCache'))
 			->setClass(CleanCacheCommand::class)
-			->addTag(\Kdyby\Console\DI\ConsoleExtension::COMMAND_TAG)
 		;
+
+		if (\class_exists('\Kdyby\Console\DI\ConsoleExtension')) {
+			$cleanCacheDefinition->addTag('kdyby.console.command');
+		}
 	}
 }
