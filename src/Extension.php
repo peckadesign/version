@@ -74,14 +74,17 @@ final class Extension extends \Nette\DI\CompilerExtension
 		];
 		$builder->addDefinition($this->prefix('filter'))->setClass(Filter::class)->setArguments($arguments);
 
-		if ( ! \class_exists(\Kdyby\Console\DI\ConsoleExtension::class) || \PHP_SAPI !== 'cli') {
+		if (\PHP_SAPI !== 'cli') {
 			return;
 		}
 		$builder = $this->getContainerBuilder();
-		$builder
+		$cleanCacheDefinition = $builder
 			->addDefinition($this->prefix('console.cleanCache'))
 			->setClass(CleanCacheCommand::class)
-			->addTag(\Kdyby\Console\DI\ConsoleExtension::COMMAND_TAG)
 		;
+
+		if (\class_exists('\Kdyby\Console\DI\ConsoleExtension')) {
+			$cleanCacheDefinition->addTag('kdyby.console.command');
+		}
 	}
 }
