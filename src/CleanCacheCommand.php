@@ -15,7 +15,8 @@ final class CleanCacheCommand extends \Symfony\Component\Console\Command\Command
 	protected function execute(
 		\Symfony\Component\Console\Input\InputInterface $input,
 		\Symfony\Component\Console\Output\OutputInterface $output
-	) {
+	)
+	{
 		/** @var \Nette\Caching\IStorage $storage */
 		$storage = $this->getHelper('container')->getByType(\Nette\Caching\IStorage::class);
 		$conditions = [
@@ -33,6 +34,8 @@ final class CleanCacheCommand extends \Symfony\Component\Console\Command\Command
 		if ($output->getVerbosity() > \Symfony\Component\Console\Output\Output::VERBOSITY_QUIET) {
 			$output->writeln('<info>Smazáno</info>');
 		}
+
+		return 0;
 	}
 
 }
