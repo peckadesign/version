@@ -28,5 +28,10 @@
 		"psr-4": {
 			"Pd\\Version\\": "src/"
 		}
+	},
+	"autoload-dev": {
+		"classmap": [
+			"tests/"
+		]
 	}
 }
